@@ -19,6 +19,15 @@ static uint32_t lastshow = 0;
 uint32_t _frame_cnt=0;
 uint32_t _retry_cnt=0;
 
+
+extern "C" {
+static void __empty() {
+	// empty
+}
+void yield(void) __attribute__ ((weak, alias("__empty")));
+}
+
+
 // uint32_t CRGB::Squant = ((uint32_t)((__TIME__[4]-'0') * 28))<<16 | ((__TIME__[6]-'0')*50)<<8 | ((__TIME__[7]-'0')*28);
 
 CFastLED::CFastLED() {
@@ -232,9 +241,7 @@ void CFastLED::setMaxRefreshRate(uint16_t refresh, bool constrain) {
 
 extern "C" int atexit(void (* /*func*/ )()) { return 0; }
 
-#ifdef FASTLED_NEED_YIELD
-extern "C" void yield(void) __attribute__ ((weak, alias("__empty")));
-#endif
+extern "C" void __cxa_pure_virtual (void) {}
 
 #ifdef NEED_CXX_BITS
 namespace __cxxabiv1

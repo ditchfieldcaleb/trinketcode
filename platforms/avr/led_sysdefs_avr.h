@@ -42,13 +42,8 @@ typedef volatile       uint8_t RwReg; /**< Read-Write 8-bit register (volatile u
 #endif
 
 extern "C" {
-#  if defined(CORE_TEENSY) || defined(TEENSYDUINO)
-extern volatile unsigned long timer0_millis_count;
-#    define MS_COUNTER timer0_millis_count
-#  else
-extern volatile unsigned long timer0_millis;
-#    define MS_COUNTER timer0_millis
-#  endif
+extern volatile unsigned long millis_timer_millis;
+#    define MS_COUNTER millis_timer_millis
 };
 
 // special defs for the tiny environments
